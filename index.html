@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Note-Making for Real Learning — An Evidence-Based Guide</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-secondary: #4a4a4a;
+    --ink-muted: #7a7a7a;
+    --surface: #ffffff;
+    --surface-alt: #f7f6f3;
+    --surface-accent: #f0ede6;
+    --border: #e0ddd6;
+    --border-strong: #c8c4bc;
+    --accent: #2d5a3d;
+    --accent-light: #e8f0ea;
+    --accent-mid: #4a8c5c;
+    --danger: #8b2c2c;
+    --danger-light: #fdf0f0;
+    --amber: #7a5218;
+    --amber-light: #fdf5e8;
+    --blue: #1a3d6b;
+    --blue-light: #eef3fb;
+    --purple: #4a2d7a;
+    --purple-light: #f3eefb;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink);
+    background: var(--surface);
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+  }
+
+  /* ── Cover ── */
+  .cover {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 2.5rem;
+    margin-bottom: 3.5rem;
+  }
+  .cover-eyebrow {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 1rem;
+  }
+  .cover h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+  .cover-subtitle {
+    font-size: 1.05rem;
+    color: var(--ink-secondary);
+    max-width: 560px;
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    font-style: italic;
+  }
+
+  /* ── TOC ── */
+  .toc {
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 3.5rem;
+  }
+  .toc-title {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 1rem;
+  }
+  .toc ol {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.35rem 2rem;
+  }
+  .toc li {
+    font-size: 0.875rem;
+    color: var(--ink-secondary);
+  }
+  .toc li a {
+    color: inherit;
+    text-decoration: none;
+    display: flex;
+    gap: 0.5rem;
+    align-items: baseline;
+  }
+  .toc li a:hover { color: var(--accent); }
+  .toc-num {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: var(--ink-muted);
+    flex-shrink: 0;
+  }
+
+  /* ── Sections ── */
+  .section {
+    margin-bottom: 4.5rem;
+    scroll-margin-top: 2rem;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.75rem;
+    margin-bottom: 2rem;
+  }
+  .section-num {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--ink-muted);
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  /* ── Principle cards ── */
+  .principle {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 1.75rem;
+    overflow: hidden;
+  }
+  .principle-header {
+    background: var(--surface-alt);
+    padding: 0.85rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .principle-label {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    flex-shrink: 0;
+  }
+  .principle-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .principle-body {
+    padding: 1.25rem 1.25rem;
+  }
+  .principle-row {
+    margin-bottom: 1rem;
+  }
+  .principle-row:last-child { margin-bottom: 0; }
+  .row-label {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 0.3rem;
+  }
+  .principle-row p {
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+  .example-block {
+    background: var(--accent-light);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 4px 4px 0;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-style: italic;
+    color: var(--ink-secondary);
+  }
+  .mistake-block {
+    background: var(--danger-light);
+    border-left: 3px solid var(--danger);
+    border-radius: 0 4px 4px 0;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: var(--danger);
+  }
+
+  /* ── Stop-doing cards ── */
+  .stop-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.1rem 1.25rem;
+    margin-bottom: 1rem;
+    align-items: start;
+  }
+  .stop-icon {
+    font-size: 1.1rem;
+    margin-top: 1px;
+    color: var(--danger);
+    font-style: normal;
+  }
+  .stop-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+  .stop-desc {
+    font-size: 0.875rem;
+    color: var(--ink-secondary);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+  .stop-instead {
+    font-size: 0.8rem;
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    display: inline-block;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── Workflow steps ── */
+  .workflow {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+  .workflow-step {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    gap: 0 1rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .workflow-step::before {
+    content: '';
+    position: absolute;
+    left: 1.2rem;
+    top: 2.5rem;
+    bottom: -1.5rem;
+    width: 1px;
+    background: var(--border);
+  }
+  .workflow-step:last-child::before { display: none; }
+  .step-num-circle {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+  .step-content {}
+  .step-obj {
+    font-family: 'Courier New', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 0.15rem;
+    margin-top: 0.55rem;
+  }
+  .step-action {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+  }
+  .step-desc {
+    font-size: 0.875rem;
+    color: var(--ink-secondary);
+    margin-bottom: 0.5rem;
+  }
+  .step-example {
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 0.6rem 0.85rem;
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--ink-muted);
+  }
+  .step-example strong { color: var(--ink-secondary); font-style: normal; }
+
+  /* ── Goal tables ── */
+  .goal-block {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+  .goal-header {
+    background: var(--ink);
+    color: white;
+    padding: 0.7rem 1.25rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+  .goal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: none;
+  }
+  .goal-cell {
+    padding: 0.9rem 1.1rem;
+    font-size: 0.85rem;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .goal-cell:nth-child(2n) { border-right: none; }
+  .goal-cell:nth-last-child(-n+2) { border-bottom: none; }
+  .goal-cell-label {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 0.3rem;
+  }
+  .goal-cell p { line-height: 1.55; color: var(--ink-secondary); }
+  .goal-cell .do { color: var(--accent); }
+  .goal-cell .dont { color: var(--danger); }
+
+  /* ── Tool section ── */
+  .tool-qa {
+    margin-bottom: 2rem;
+  }
+  .qa-item {
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
+  }
+  .qa-item:last-child { border-bottom: none; }
+  .qa-q {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    display: flex;
+    gap: 0.6rem;
+    align-items: baseline;
+  }
+  .qa-q-mark {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 1px 6px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+  .qa-a {
+    font-size: 0.875rem;
+    color: var(--ink-secondary);
+    line-height: 1.65;
+    padding-left: 2rem;
+  }
+
+  /* ── Minimal system ── */
+  .system-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .sys-card {
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 1rem 1.1rem;
+  }
+  .sys-card-label {
+    font-family: 'Courier New', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin-bottom: 0.5rem;
+  }
+  .sys-card ul {
+    list-style: none;
+    font-size: 0.825rem;
+    color: var(--ink-secondary);
+    line-height: 1.6;
+  }
+  .sys-card ul li::before {
+    content: '—';
+    margin-right: 0.4rem;
+    color: var(--ink-muted);
+  }
+
+  .folder-tree {
+    background: #1a1a1a;
+    color: #c8f7c5;
+    border-radius: 7px;
+    padding: 1.25rem 1.5rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+  .folder-tree .dir { color: #7ec8e3; }
+  .folder-tree .comment { color: #555; }
+
+  /* ── Advanced techniques ── */
+  .technique {
+    border-left: 3px solid var(--accent-mid);
+    padding: 0.85rem 1.25rem;
+    margin-bottom: 1.25rem;
+    background: var(--surface-alt);
+    border-radius: 0 7px 7px 0;
+  }
+  .technique-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+  }
+  .technique-benefit {
+    font-size: 0.8rem;
+    font-family: 'Courier New', monospace;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+  .technique p {
+    font-size: 0.875rem;
+    color: var(--ink-secondary);
+    line-height: 1.6;
+  }
+  .technique .when {
+    margin-top: 0.35rem;
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+    font-style: italic;
+  }
+
+  /* ── Final recs ── */
+  .final-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+  .final-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .final-card-header {
+    padding: 0.7rem 1.1rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .final-card-header.green { background: var(--accent-light); color: var(--accent); }
+  .final-card-header.red { background: var(--danger-light); color: var(--danger); }
+  .final-card ol, .final-card ul {
+    padding: 0.85rem 1.1rem;
+    padding-left: 2.5rem;
+    font-size: 0.85rem;
+    color: var(--ink-secondary);
+    line-height: 1.7;
+  }
+
+  .workflow-box {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+    background: var(--surface-alt);
+  }
+  .workflow-box-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .workflow-box-badge {
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 3px;
+  }
+  .badge-avg { background: var(--blue-light); color: var(--blue); }
+  .badge-mastery { background: var(--purple-light); color: var(--purple); }
+  .workflow-box ol {
+    padding-left: 1.25rem;
+    font-size: 0.875rem;
+    color: var(--ink-secondary);
+    line-height: 1.75;
+  }
+
+  .callout {
+    background: var(--amber-light);
+    border-left: 3px solid #c8841a;
+    border-radius: 0 6px 6px 0;
+    padding: 0.85rem 1.1rem;
+    font-size: 0.875rem;
+    color: var(--amber);
+    margin: 1.25rem 0;
+    font-style: italic;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 3rem 0;
+  }
+
+  p { margin-bottom: 0.85rem; }
+  p:last-child { margin-bottom: 0; }
+
+  /* ── Dark theme overrides ── */
+  [data-theme="dark"] {
+    --ink: #e8e4dc;
+    --ink-secondary: #b0a99e;
+    --ink-muted: #6b6560;
+    --surface: #141210;
+    --surface-alt: #1d1b18;
+    --surface-accent: #231f1b;
+    --border: #2e2a25;
+    --border-strong: #403b34;
+    --accent: #6aad80;
+    --accent-light: #162319;
+    --accent-mid: #5a9a6e;
+    --danger: #c87070;
+    --danger-light: #1f1010;
+    --amber: #c4973a;
+    --amber-light: #1e1608;
+    --blue: #7aaed4;
+    --blue-light: #0d1824;
+    --purple: #a98de0;
+    --purple-light: #16102a;
+  }
+
+  [data-theme="dark"] .folder-tree {
+    background: #0d0c0a;
+    color: #a8d8a0;
+  }
+  [data-theme="dark"] .folder-tree .comment { color: #3d3830; }
+  [data-theme="dark"] .step-num-circle { background: #e8e4dc; color: #141210; }
+  [data-theme="dark"] .goal-header { background: #e8e4dc; color: #141210; }
+  [data-theme="dark"] .final-card-header.green { background: #162319; color: #6aad80; }
+  [data-theme="dark"] .final-card-header.red { background: #1f1010; color: #c87070; }
+
+  /* ── Theme toggle button ── */
+  #theme-toggle {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    z-index: 999;
+    background: var(--surface-alt);
+    border: 1px solid var(--border-strong);
+    border-radius: 2rem;
+    padding: 0.4rem 0.9rem;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  #theme-toggle:hover {
+    color: var(--ink);
+    border-color: var(--ink-muted);
+  }
+  #theme-toggle .toggle-icon { font-size: 13px; line-height: 1; }
+
+  @media (max-width: 600px) {
+    .toc ol { grid-template-columns: 1fr; }
+    .goal-grid { grid-template-columns: 1fr; }
+    .system-grid { grid-template-columns: 1fr; }
+    .final-grid { grid-template-columns: 1fr; }
+    body { padding: 1.5rem 1.1rem 4rem; }
+    .cover h1 { font-size: 1.75rem; }
+    #theme-toggle { top: 0.75rem; right: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<button id="theme-toggle" aria-label="Toggle dark mode">
+  <span class="toggle-icon" id="toggle-icon">☽</span>
+  <span id="toggle-label">dark</span>
+</button>
+
+<!-- Cover -->
+<div class="cover">
+  <div class="cover-eyebrow">Evidence-Based Guide to Note-Making</div>
+  <h1>What to Actually Do<br>When You Learn</h1>
+  <p class="cover-subtitle">Not a survey of systems. Not a productivity philosophy. A practical answer to one question: given what research knows about memory and expertise, what should you do?</p>
+</div>
+
+<!-- Table of Contents -->
+<div class="toc">
+  <div class="toc-title">Contents</div>
+  <ol>
+    <li><a href="#s1"><span class="toc-num">01</span> The 80/20 of Effective Learning</a></li>
+    <li><a href="#s2"><span class="toc-num">02</span> What to Stop Doing</a></li>
+    <li><a href="#s3"><span class="toc-num">03</span> The Evidence-Based Workflow</a></li>
+    <li><a href="#s4"><span class="toc-num">04</span> Notes for Different Goals</a></li>
+    <li><a href="#s5"><span class="toc-num">05</span> Using Digital Tools</a></li>
+    <li><a href="#s6"><span class="toc-num">06</span> The Minimal Knowledge System</a></li>
+    <li><a href="#s7"><span class="toc-num">07</span> Advanced Techniques Worth Using</a></li>
+    <li><a href="#s8"><span class="toc-num">08</span> Final Recommendations</a></li>
+  </ol>
+</div>
+
+
+<!-- ── SECTION 1 ── -->
+<div class="section" id="s1">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2>The 80/20 of Effective Learning</h2>
+  </div>
+
+  <p style="font-size:0.9rem; color:var(--ink-secondary); margin-bottom:1.75rem;">Five principles drive most of the benefit. Everything else is refinement.</p>
+
+  <!-- P1 -->
+  <div class="principle">
+    <div class="principle-header">
+      <span class="principle-label">Principle 01</span>
+      <span class="principle-title">Process, Don't Copy</span>
+    </div>
+    <div class="principle-body">
+      <div class="principle-row">
+        <div class="row-label">Action</div>
+        <p>Translate every idea into your own words <em>before</em> writing it down. Close the source if you must.</p>
+      </div>
+      <div class="principle-row">
+        <div class="row-label">Why it works</div>
+        <p>Elaborative encoding: the act of reformulating forces you to understand, not just recognise. Recognition is cheap and fades fast. Recall is durable.</p>
+      </div>
+      <div class="principle-row">
+        <div class="row-label">Example</div>
+        <div class="example-block">Instead of copying "TCP uses a three-way handshake", write: "TCP makes two computers shake hands three times before exchanging data — SYN, SYN-ACK, ACK — because each side needs to confirm the other can both send and receive."</div>
+      </div>
+      <div class="principle-row">
+        <div class="row-label">Common mistakes</div>
+        <div class="mistake-block">Paraphrasing word-by-word (still copying), or writing while reading (prevents true reformulation). Always close or look away first.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P2 -->
+  <div class="principle">
+    <div class="principle-header">
+      <span class="principle-label">Principle 02</span>
+      <span class="principle-title">Retrieve, Not Re-read</span>
+    </div>
+    <div class="principle-body">
+      <div class="principle-row">
+        <div class="row-label">Action</div>
+        <p>After any learning session, close everything and write what you remember. Make it effortful. This is your primary review method.</p>
+      </div>
+      <div class="principle-row">
+        <div class="row-label">Why it works</div>
+        <p>The testing effect (retrieval practice) is the most replicated finding in memory research. Effortful recall physically strengthens memory traces and reveals gaps that re-reading cannot.</p>
+      </div>
+      <div class="principle-row">
+        <div class="row-label">Example</div>
+        <div class="example-block">After reading about async/await in JS: close the docs, open a blank file, and write everything you remember — what it does, how it differs from callbacks, what happens with errors, an example. Check gaps afterward.</div>
+      </div>
+      <div class="principle-row">
+        <div class="row-label">Common mistakes</div>
+        <div class="mistake-block">Treating re-reading as review. Re-reading produces fluency illusion — material feels familiar, so you believe you know it. You don't.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P3 -->
+  <div class="principle">
+    <div class="principle-header">
+      <span class="principle-label">Principle 03</span>
+      <span class="principle-title">Connect Everything to What You Already Know</span>
+    </div>
+    <div class="principle-body">
+      <div class="principle-row">
+        <div class="row-label">Action</div>
+        <p>For every new concept, write: "This is like ___" or "This differs from ___ because ___." One genuine connection per concept is enough.</p>
+      </div>
+      <div class="principle-row">
+        <div class="row-label">Why it works</div>
+        <p>Memory is associative. New information that connects to an existing network is retained dramatically better than isolated facts. Analogies are not just pedagogical — they are how understanding is built.</p>
+      </div>
+      <div class="principle-row">
+        <div class="row-label">Example</div>
+        <div class="example-block">Learning about database indexes: "This is like a book's index at the back — you don't read the whole book to find a page, you look up the word and jump directly. Costs space, saves time."</div>
+      </div>
+      <div class="principle-row">
+        <div class="row-label">Common mistakes</div>
+        <div class="mistake-block">Writing definitions without connections. Definitions are a starting point, not an endpoint. A definition you cannot connect to anything is nearly useless for long-term retention.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P4 -->
+  <div class="principle">
+    <div class="principle-header">
+      <span class="principle-label">Principle 04</span>
+      <span class="principle-title">Ask Why, Not What</span>
+    </div>
+    <div class="principle-body">
+      <div class="principle-row">
+        <div class="row-label">Action</div>
+        <p>For every fact or technique, force yourself to answer: "Why does this work?" and "When would this fail?" Write the answers, even if incomplete.</p>
+      </div>
+      <div class="principle-row">
+        <div class="row-label">Why it works</div>
+        <p>Deep processing (asking why) creates more durable memories than surface processing (asking what). It also produces transferable knowledge — knowledge that works in new situations, not just the original context.</p>
+      </div>
+      <div class="principle-row">
+        <div class="row-label">Example</div>
+        <div class="example-block">Don't note: "Use memoisation to speed up recursive functions." Note: "Memoisation works because recursive functions recompute the same subproblems. It fails when the input space is huge (too much memory) or when the function has side effects (cached result is wrong)."</div>
+      </div>
+      <div class="principle-row">
+        <div class="row-label">Common mistakes</div>
+        <div class="mistake-block">Stopping at "how." Most textbook and tutorial notes are almost entirely "how." The "why" and "when does this break" are where expertise lives.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P5 -->
+  <div class="principle">
+    <div class="principle-header">
+      <span class="principle-label">Principle 05</span>
+      <span class="principle-title">Space Your Reviews</span>
+    </div>
+    <div class="principle-body">
+      <div class="principle-row">
+        <div class="row-label">Action</div>
+        <p>Review material at increasing intervals — 1 day later, then 3 days, then 1 week, then 1 month. A single flashcard app (Anki) can automate this entirely for factual knowledge.</p>
+      </div>
+      <div class="principle-row">
+        <div class="row-label">Why it works</div>
+        <p>The spacing effect: reviewing just before you forget is maximally efficient. Reviewing too early wastes time; reviewing too late means you have to relearn. Spaced intervals target the forgetting curve precisely.</p>
+      </div>
+      <div class="principle-row">
+        <div class="row-label">Example</div>
+        <div class="example-block">After a database session: make 5–10 Anki cards for the core concepts. Not for everything — only for things you need to recall from scratch (SQL syntax, Big O complexities, specific API signatures). The app handles the schedule.</div>
+      </div>
+      <div class="principle-row">
+        <div class="row-label">Common mistakes</div>
+        <div class="mistake-block">Cramming (massed practice). Feels effective because it produces short-term recall. Research consistently shows it produces the worst long-term retention of any review strategy.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── SECTION 2 ── -->
+<div class="section" id="s2">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2>What Most People Should Stop Doing</h2>
+  </div>
+
+  <p style="font-size:0.9rem; color:var(--ink-secondary); margin-bottom:1.75rem;">These practices feel productive. The evidence says otherwise.</p>
+
+  <div class="stop-card">
+    <span class="stop-icon">✕</span>
+    <div>
+      <div class="stop-title">Highlighting and underlining</div>
+      <div class="stop-desc">Produces a false sense of engagement. You are reading and marking simultaneously, which prevents either from happening well. Highlighted notes, when reviewed, bypass the effortful retrieval that actually builds memory.</div>
+      <span class="stop-instead">→ Instead: read a section, then write a summary from memory</span>
+    </div>
+  </div>
+
+  <div class="stop-card">
+    <span class="stop-icon">✕</span>
+    <div>
+      <div class="stop-title">Decorative / aesthetic notes</div>
+      <div class="stop-desc">Time spent on fonts, colours, and layouts is time not spent processing. Studies show no learning benefit from visual elaboration that is not meaningful. Pretty notes are often a proxy for the anxiety of not understanding.</div>
+      <span class="stop-instead">→ Instead: spend that time on one more retrieval attempt</span>
+    </div>
+  </div>
+
+  <div class="stop-card">
+    <span class="stop-icon">✕</span>
+    <div>
+      <div class="stop-title">Copying textbooks or slides verbatim</div>
+      <div class="stop-desc">You can copy text while understanding nothing. Transcription is a motor task, not a cognitive one. It produces the illusion of work.</div>
+      <span class="stop-instead">→ Instead: read, look away, write the idea in your own words</span>
+    </div>
+  </div>
+
+  <div class="stop-card">
+    <span class="stop-icon">✕</span>
+    <div>
+      <div class="stop-title">Collecting information without processing it</div>
+      <div class="stop-desc">"Save-it-for-later" culture. Browser bookmarks, Notion databases, Readwise libraries full of unread highlights. Saved information is not learned information. A collector's instinct is the enemy of a learner's practice.</div>
+      <span class="stop-instead">→ Instead: if it matters, process it now. If you won't process it, don't save it</span>
+    </div>
+  </div>
+
+  <div class="stop-card">
+    <span class="stop-icon">✕</span>
+    <div>
+      <div class="stop-title">Re-reading as review</div>
+      <div class="stop-desc">The fluency illusion: re-reading makes material feel familiar, which your brain misreads as knowing. Studies by Roediger and Karpicke showed retrieval practice produces 50–70% better long-term retention than re-reading.</div>
+      <span class="stop-instead">→ Instead: close the material, write what you remember, then check</span>
+    </div>
+  </div>
+
+  <div class="stop-card">
+    <span class="stop-icon">✕</span>
+    <div>
+      <div class="stop-title">Over-engineering your PKM system</div>
+      <div class="stop-desc">Building the perfect folder structure, tag taxonomy, and template system before doing any real learning. The system is not the learning. A complex system that requires maintenance becomes the goal instead of the tool.</div>
+      <span class="stop-instead">→ Instead: use the simplest system that works. See Section 6</span>
+    </div>
+  </div>
+
+  <div class="stop-card">
+    <span class="stop-icon">✕</span>
+    <div>
+      <div class="stop-title">Taking notes on everything</div>
+      <div class="stop-desc">Note quantity is inversely correlated with note quality. Trying to capture everything means processing nothing. The best note-takers capture less — but what they capture is synthesised, connected, and retrievable.</div>
+      <span class="stop-instead">→ Instead: ask "will I need to recall this?" If not, don't note it</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── SECTION 3 ── -->
+<div class="section" id="s3">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2>The Evidence-Based Note-Making Workflow</h2>
+  </div>
+
+  <p style="font-size:0.9rem; color:var(--ink-secondary); margin-bottom:1.75rem;">From encountering new information to long-term retention. Follow this sequence every time.</p>
+
+  <div class="workflow">
+
+    <div class="workflow-step">
+      <div class="step-num-circle">01</div>
+      <div class="step-content">
+        <div class="step-obj">Objective</div>
+        <div class="step-action">Orient before you consume</div>
+        <div class="step-desc">Spend 2–3 minutes before reading or watching to ask: "What do I already know about this? What am I trying to learn?" Skim headers, chapter titles, or the abstract.</div>
+        <div class="step-example"><strong>Example:</strong> Before reading about OAuth 2.0: skim the doc headers, jot down "I know auth involves tokens. I want to understand the flow and where security happens."</div>
+      </div>
+    </div>
+
+    <div class="workflow-step">
+      <div class="step-num-circle">02</div>
+      <div class="step-content">
+        <div class="step-obj">Objective</div>
+        <div class="step-action">Consume in focused chunks</div>
+        <div class="step-desc">Read or watch one coherent section at a time (5–15 minutes). Do not take notes while consuming — this splits your attention and reduces comprehension. Full attention first.</div>
+        <div class="step-example"><strong>Example:</strong> Read one full section of a database chapter. No notepad. No pausing to write. Understand the whole idea first.</div>
+      </div>
+    </div>
+
+    <div class="workflow-step">
+      <div class="step-num-circle">03</div>
+      <div class="step-content">
+        <div class="step-obj">Objective</div>
+        <div class="step-action">Retrieve before you write</div>
+        <div class="step-desc">Close or minimise the source. Write from memory: key ideas, mechanisms, examples, questions. Do not open the source to help yourself — the struggle is the point.</div>
+        <div class="step-example"><strong>Example:</strong> After the database section: open a blank doc and write everything you can recall. Expect gaps. That is normal and useful.</div>
+      </div>
+    </div>
+
+    <div class="workflow-step">
+      <div class="step-num-circle">04</div>
+      <div class="step-content">
+        <div class="step-obj">Objective</div>
+        <div class="step-action">Process your notes with questions</div>
+        <div class="step-desc">Expand each idea with: Why does this work? How does it connect to X? When would this fail? What would I do differently? One sentence of processing is worth ten sentences of transcription.</div>
+        <div class="step-example"><strong>Example:</strong> Note says "B-trees used for database indexes." Add: "Why B-tree not binary tree? Because disk reads are expensive — B-tree is wide and shallow, fewer reads. Fails when data is unstructured."</div>
+      </div>
+    </div>
+
+    <div class="workflow-step">
+      <div class="step-num-circle">05</div>
+      <div class="step-content">
+        <div class="step-obj">Objective</div>
+        <div class="step-action">Make one connection to existing knowledge</div>
+        <div class="step-desc">For each key concept, write a single genuine analogy or link to something you already know well. This is not optional decoration — it is how memory networks are built.</div>
+        <div class="step-example"><strong>Example:</strong> "B-tree width = like a wide staircase vs a ladder. Both get you up, but the wide stairs let you take many steps at once."</div>
+      </div>
+    </div>
+
+    <div class="workflow-step">
+      <div class="step-num-circle">06</div>
+      <div class="step-content">
+        <div class="step-obj">Objective</div>
+        <div class="step-action">Flag gaps and open questions</div>
+        <div class="step-desc">Mark anything you could not recall, could not explain, or are unsure about with a clear marker (e.g., ??). These are your next learning targets, not signs of failure.</div>
+        <div class="step-example"><strong>Example:</strong> "?? — How does the database decide when to use an index vs full scan? Look this up."</div>
+      </div>
+    </div>
+
+    <div class="workflow-step">
+      <div class="step-num-circle">07</div>
+      <div class="step-content">
+        <div class="step-obj">Objective</div>
+        <div class="step-action">Create retrieval triggers for long-term retention</div>
+        <div class="step-desc">For factual knowledge you need to recall (not just understand), create spaced repetition flashcards (Anki). One card per atomic fact. For conceptual knowledge, schedule a review in 3–7 days.</div>
+        <div class="step-example"><strong>Example:</strong> Anki card front: "When does a B-tree index hurt performance?" Back: "High-write tables — index must be updated on every write, slowing inserts."</div>
+      </div>
+    </div>
+
+    <div class="workflow-step">
+      <div class="step-num-circle">08</div>
+      <div class="step-content">
+        <div class="step-obj">Objective</div>
+        <div class="step-action">Apply before you move on</div>
+        <div class="step-desc">Do one small application: a practice problem, a quick implementation, a teaching explanation, or a written scenario. Application reveals the gaps that even good notes miss.</div>
+        <div class="step-example"><strong>Example:</strong> After learning about indexes: open a test DB and run EXPLAIN ANALYZE on a slow query. Add an index. See the difference. Write one sentence about what you observed.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="callout">
+    The most important step is 03. If you only change one habit, make it this: close the source before you write. Everything else follows from the quality of retrieval.
+  </div>
+</div>
+
+
+<!-- ── SECTION 4 ── -->
+<div class="section" id="s4">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2>Notes for Different Learning Goals</h2>
+  </div>
+
+  <!-- Exams -->
+  <div class="goal-block">
+    <div class="goal-header">Exams</div>
+    <div class="goal-grid">
+      <div class="goal-cell">
+        <div class="goal-cell-label">Create</div>
+        <p class="do">Flashcards for definitions and facts. One-page retrieval sheets made from memory (not from notes). Practice problems with self-grading.</p>
+      </div>
+      <div class="goal-cell">
+        <div class="goal-cell-label">Do not create</div>
+        <p class="dont">Colour-coded summary notes. Concept maps made from open sources. "Study guides" that are just organised transcriptions.</p>
+      </div>
+      <div class="goal-cell">
+        <div class="goal-cell-label">Effort allocation</div>
+        <p>80% retrieval practice, 20% note creation. If you have 10 hours to study, 8 hours should be practice questions and recall exercises.</p>
+      </div>
+      <div class="goal-cell">
+        <div class="goal-cell-label">Workflow</div>
+        <p>Read → recall → note gaps → Anki cards for gaps → daily practice questions → pre-exam: write entire topic from memory, check, fix gaps.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Programming -->
+  <div class="goal-block">
+    <div class="goal-header">Programming</div>
+    <div class="goal-grid">
+      <div class="goal-cell">
+        <div class="goal-cell-label">Create</div>
+        <p class="do">Working code examples you built yourself. Notes explaining <em>why</em> a pattern works, not just how. Failure logs ("I tried X, it failed because Y, Z fixed it").</p>
+      </div>
+      <div class="goal-cell">
+        <div class="goal-cell-label">Do not create</div>
+        <p class="dont">Code snippets copied from docs or tutorials without understanding. Notes about syntax you can look up in 5 seconds. Saved Stack Overflow answers without context.</p>
+      </div>
+      <div class="goal-cell">
+        <div class="goal-cell-label">Effort allocation</div>
+        <p>Spend 60% of time writing code, 40% thinking and writing. Notes should capture understanding and decisions, not reference material.</p>
+      </div>
+      <div class="goal-cell">
+        <div class="goal-cell-label">Workflow</div>
+        <p>Read concept → implement from memory (even if incomplete) → debug → note what surprised you → write a "mental model" note connecting it to what you knew → build something small using it.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Technical Subjects -->
+  <div class="goal-block">
+    <div class="goal-header">Technical subjects (maths, science, engineering)</div>
+    <div class="goal-grid">
+      <div class="goal-cell">
+        <div class="goal-cell-label">Create</div>
+        <p class="do">Worked examples done from scratch. Explanations of <em>why</em> a formula holds. Boundary condition notes ("this breaks when..."). Diagrams you drew yourself.</p>
+      </div>
+      <div class="goal-cell">
+        <div class="goal-cell-label">Do not create</div>
+        <p class="dont">Formula sheets without derivation understanding. Notes that re-explain what the textbook already explains clearly. Diagrams copied from slides.</p>
+      </div>
+      <div class="goal-cell">
+        <div class="goal-cell-label">Effort allocation</div>
+        <p>Problem-solving should dominate. For every hour reading, spend 2 hours working problems without looking at solutions first.</p>
+      </div>
+      <div class="goal-cell">
+        <div class="goal-cell-label">Workflow</div>
+        <p>Understand concept → solve practice problem without notes → check → identify what failed → build a "mental model" note → make Anki cards only for facts that cannot be derived.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Research -->
+  <div class="goal-block">
+    <div class="goal-header">Research / reading papers</div>
+    <div class="goal-grid">
+      <div class="goal-cell">
+        <div class="goal-cell-label">Create</div>
+        <p class="do">One-paragraph synthesis per paper in your own words. A "so what" note: what changes about what you believed before reading this? Connection notes to other papers or your own work.</p>
+      </div>
+      <div class="goal-cell">
+        <div class="goal-cell-label">Do not create</div>
+        <p class="dont">Highlighted PDFs with no synthesis. Abstract-level summaries without reading the methods. Notes on papers you did not finish.</p>
+      </div>
+      <div class="goal-cell">
+        <div class="goal-cell-label">Effort allocation</div>
+        <p>Read fewer papers more carefully. One fully processed paper is worth ten skimmed ones for developing genuine expertise.</p>
+      </div>
+      <div class="goal-cell">
+        <div class="goal-cell-label">Workflow</div>
+        <p>Skim abstract + conclusion → read methods + results → write synthesis from memory → ask "how does this change my model?" → add a connection to an existing note in your system.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Books -->
+  <div class="goal-block">
+    <div class="goal-header">Books (non-fiction)</div>
+    <div class="goal-grid">
+      <div class="goal-cell">
+        <div class="goal-cell-label">Create</div>
+        <p class="do">A 3–5 point synthesis written from memory after finishing each chapter. A "my takeaways" note at the end. Two or three ideas you will act on or think differently about.</p>
+      </div>
+      <div class="goal-cell">
+        <div class="goal-cell-label">Do not create</div>
+        <p class="dont">Chapter-by-chapter summaries that mirror the book's structure. Highlights without follow-up. Notes on every interesting sentence.</p>
+      </div>
+      <div class="goal-cell">
+        <div class="goal-cell-label">Effort allocation</div>
+        <p>Low — most ideas in most books do not require detailed notes. The goal is to extract the few ideas that genuinely update your thinking and embed those well.</p>
+      </div>
+      <div class="goal-cell">
+        <div class="goal-cell-label">Workflow</div>
+        <p>Read chapter → close book → write 3–5 ideas from memory → mark one as "most important" → connect it to something you already knew → add to spaced review if it's a concept you want to retain.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lifelong learning -->
+  <div class="goal-block">
+    <div class="goal-header">Lifelong / self-directed learning</div>
+    <div class="goal-grid">
+      <div class="goal-cell">
+        <div class="goal-cell-label">Create</div>
+        <p class="do">An "evergreen" note per important concept, updated as your understanding grows. Connection notes between domains. A small set of core ideas you return to and deepen over time.</p>
+      </div>
+      <div class="goal-cell">
+        <div class="goal-cell-label">Do not create</div>
+        <p class="dont">Huge archives of saved content. Notes you never return to. A system that is more interesting than what it stores.</p>
+      </div>
+      <div class="goal-cell">
+        <div class="goal-cell-label">Effort allocation</div>
+        <p>Consistency over volume. Thirty minutes daily of deliberate processing beats six-hour weekend sessions followed by weeks of passive consumption.</p>
+      </div>
+      <div class="goal-cell">
+        <div class="goal-cell-label">Workflow</div>
+        <p>Weekly: identify 1–2 ideas worth retaining → write or update a note → connect to existing notes → schedule for spaced review. Monthly: prune your system — delete or archive what you have not touched.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ── SECTION 5 ── -->
+<div class="section" id="s5">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2>Using Digital Tools</h2>
+  </div>
+
+  <p style="font-size:0.9rem; color:var(--ink-secondary); margin-bottom:1.75rem;">The tool is not the method. The same bad habits in a beautiful app are still bad habits.</p>
+
+  <div class="tool-qa">
+
+    <div class="qa-item">
+      <div class="qa-q"><span class="qa-q-mark">Q</span> What role should the tool play?</div>
+      <div class="qa-a">Storage and retrieval of processed notes. Not collection. Not consumption. You do the thinking; the tool holds what you've thought. A tool that makes saving easy is not the same as one that makes learning easy — these are often opposites.</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q"><span class="qa-q-mark">Q</span> When should Obsidian be used?</div>
+      <div class="qa-a">When you are building knowledge you want to connect and revisit over months or years. Best for: research, technical expertise, writing, lifelong learning. The bi-directional linking is genuinely useful when concepts actually connect across domains. Avoid it for short-term exam prep or single-use notes.</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q"><span class="qa-q-mark">Q</span> When should Notion be used?</div>
+      <div class="qa-a">When you need structured databases — tracking projects, managing references, organising team knowledge. It is a database/wiki tool, not a thinking tool. It is poor for freeform writing, linking ideas, or retrieval practice. Many people over-build elaborate Notion systems and spend more time maintaining them than learning.</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q"><span class="qa-q-mark">Q</span> When is a tool unnecessary?</div>
+      <div class="qa-a">For exam preparation, a physical notebook is better — handwriting slows you down, which forces more processing. For short-term skill acquisition (a weekend project, a single course), plain text files or a simple notes app outperform any PKM system. If you're spending more than 10 minutes setting up your note environment for a task, something is wrong.</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q"><span class="qa-q-mark">Q</span> What is the highest-ROI setup?</div>
+      <div class="qa-a">Obsidian with three folders (Inbox, Notes, Archive), no plugins beyond core, and a weekly 15-minute review to process the inbox. Anki for anything you need to recall by rote. A physical notebook for active thinking sessions. That is a complete system. Everything else is optional.</div>
+    </div>
+
+    <div class="qa-item">
+      <div class="qa-q"><span class="qa-q-mark">Q</span> What about AI tools?</div>
+      <div class="qa-a">Useful for generating practice questions, explaining concepts from a different angle, and checking your explanations. Dangerous for note-making if they bypass your own processing — having AI summarise a paper you haven't read produces zero learning. Use AI to test and challenge your understanding, not to replace it.</div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ── SECTION 6 ── -->
+<div class="section" id="s6">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <h2>The Minimal Knowledge System</h2>
+  </div>
+
+  <p style="font-size:0.9rem; color:var(--ink-secondary); margin-bottom:1.75rem;">Implementable in a few hours. Covers 90% of what complex systems promise.</p>
+
+  <div class="folder-tree">
+    <span class="dir">📁 Knowledge/</span><br>
+    &nbsp;&nbsp;<span class="dir">📁 Inbox/</span> &nbsp;&nbsp;<span class="comment">← Raw notes from learning sessions (temporary)</span><br>
+    &nbsp;&nbsp;<span class="dir">📁 Notes/</span> &nbsp;&nbsp;<span class="comment">← Processed, permanent notes (one concept = one file)</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">📁 Tech/</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">📁 Mental-Models/</span><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<span class="dir">📁 Domain-X/</span><br>
+    &nbsp;&nbsp;<span class="dir">📁 Archive/</span> &nbsp;&nbsp;<span class="comment">← Notes you no longer need but may want</span>
+  </div>
+
+  <div class="system-grid">
+    <div class="sys-card">
+      <div class="sys-card-label">Note types</div>
+      <ul>
+        <li>Concept note (one idea)</li>
+        <li>How-to note (one process)</li>
+        <li>Connection note (links ideas)</li>
+        <li>Question note (?? prefix)</li>
+        <li>Project note (current work)</li>
+      </ul>
+    </div>
+    <div class="sys-card">
+      <div class="sys-card-label">Templates (keep simple)</div>
+      <ul>
+        <li>Title: the idea itself</li>
+        <li>In my own words: ___</li>
+        <li>Why this matters: ___</li>
+        <li>This connects to: ___</li>
+        <li>When this fails: ___</li>
+        <li>Source: ___</li>
+      </ul>
+    </div>
+    <div class="sys-card">
+      <div class="sys-card-label">Review process</div>
+      <ul>
+        <li>Daily: process Inbox (10 min)</li>
+        <li>Weekly: scan active notes (15 min)</li>
+        <li>Monthly: prune Archive (20 min)</li>
+        <li>Anki: run daily, 10–20 cards</li>
+        <li>Quarterly: delete what you no longer need</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    The number of notes is not a measure of learning. The quality of your understanding when you close your notes and face a real problem is the only measure that matters.
+  </div>
+
+  <p style="font-size:0.875rem; color:var(--ink-secondary);">Retrieval process: when you need something, search by keyword first. If not found, you probably never properly processed it. The search failure is data — it tells you to revisit the source and process it properly this time. Do not create elaborate tag systems to substitute for understanding.</p>
+</div>
+
+
+<!-- ── SECTION 7 ── -->
+<div class="section" id="s7">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <h2>Advanced Techniques Worth Using</h2>
+  </div>
+
+  <p style="font-size:0.9rem; color:var(--ink-secondary); margin-bottom:1.75rem;">Only the techniques with strong evidence and meaningful practical return.</p>
+
+  <div class="technique">
+    <div class="technique-name">Retrieval practice (active recall)</div>
+    <div class="technique-benefit">↑ Long-term retention by 50–70% vs re-reading</div>
+    <p>After learning anything, close all sources and write everything you remember. Check gaps. Repeat at intervals. Can be done with flashcards, blank-page recall, or practice problems. The harder the retrieval feels, the more it is working.</p>
+    <p class="when">Use it: always, for any learning goal. This is not optional.</p>
+  </div>
+
+  <div class="technique">
+    <div class="technique-name">Spaced repetition</div>
+    <div class="technique-benefit">↑ Retention while ↓ review time by ~75% vs fixed-interval review</div>
+    <p>Review information just before you would forget it. Anki implements this automatically. Make cards for individual atomic facts — definitions, formulas, API signatures, concept distinctions. Not for complex understanding (that requires retrieval practice, not flashcards).</p>
+    <p class="when">Use it: anything you need to recall by rote. Vocabulary, syntax, formulas, dates, names, configurations.</p>
+  </div>
+
+  <div class="technique">
+    <div class="technique-name">Elaborative interrogation</div>
+    <div class="technique-benefit">↑ Understanding and transfer of knowledge</div>
+    <p>For every fact, force yourself to answer "why is this true?" and write the answer. This is not rhetorical — write the actual mechanism. If you cannot answer, you have found a gap.</p>
+    <p class="when">Use it: technical subjects, programming concepts, science. Anywhere "how" is not enough.</p>
+  </div>
+
+  <div class="technique">
+    <div class="technique-name">Self-explanation</div>
+    <div class="technique-benefit">↑ Problem-solving ability and insight generation</div>
+    <p>After reading an explanation or solving a problem, explain it aloud or in writing as if teaching someone who knows nothing. The gaps in your explanation reveal the gaps in your understanding. Explaining forces coherence.</p>
+    <p class="when">Use it: when you think you understand something but are not sure you really do. After any non-trivial concept.</p>
+  </div>
+
+  <div class="technique">
+    <div class="technique-name">Atomic notes</div>
+    <div class="technique-benefit">↑ Reusability and cross-domain connection of knowledge</div>
+    <p>One note = one idea. Not one note per source, not one note per chapter. An idea that appears in multiple sources gets one note, updated and refined. This makes linking genuine rather than structural.</p>
+    <p class="when">Use it: for knowledge you want to build on over months or years. Not for short-term study.</p>
+  </div>
+
+  <div class="technique">
+    <div class="technique-name">Interleaving</div>
+    <div class="technique-benefit">↑ Problem-solving discrimination and transfer</div>
+    <p>When practicing, mix different types of problems or concepts rather than blocking by type. Feels harder and less fluent — which is exactly why it works. Blocked practice produces faster short-term performance; interleaving produces better long-term discrimination.</p>
+    <p class="when">Use it: exam preparation, skill acquisition, any domain with multiple problem types.</p>
+  </div>
+
+  <div class="technique">
+    <div class="technique-name">Desirable difficulty (effortful learning)</div>
+    <div class="technique-benefit">↑ Retention and understanding; prevents fluency illusion</div>
+    <p>Deliberately make learning slightly harder than comfortable: take notes in your own words (not copy-paste), solve problems before reading solutions, generate examples before seeing the textbook's examples. If learning feels too easy, you are probably not learning — you are recognising.</p>
+    <p class="when">Use it: always. It is a meta-principle, not a technique.</p>
+  </div>
+</div>
+
+
+<!-- ── SECTION 8 ── -->
+<div class="section" id="s8">
+  <div class="section-header">
+    <span class="section-num">08</span>
+    <h2>Final Recommendations</h2>
+  </div>
+
+  <div class="final-grid">
+    <div class="final-card">
+      <div class="final-card-header green">The 5 highest-leverage habits</div>
+      <ol>
+        <li>Always retrieve before writing — close the source first</li>
+        <li>Process in your own words, always</li>
+        <li>Add one genuine connection to each concept</li>
+        <li>Use Anki daily for factual knowledge (10–20 cards)</li>
+        <li>Apply new knowledge in a real task within 24 hours</li>
+      </ol>
+    </div>
+    <div class="final-card">
+      <div class="final-card-header red">The 5 biggest mistakes</div>
+      <ul>
+        <li>Re-reading as review</li>
+        <li>Highlighting without synthesis</li>
+        <li>Copying sources without transformation</li>
+        <li>Saving information without processing it</li>
+        <li>Building the system instead of using it</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="workflow-box">
+    <div class="workflow-box-title">
+      Workflow for the average learner
+      <span class="workflow-box-badge badge-avg">general</span>
+    </div>
+    <ol>
+      <li>Skim the material to orient (2 min)</li>
+      <li>Read one section with full attention — no notes</li>
+      <li>Close source, write what you remember</li>
+      <li>Add "why it works" and one analogy to each idea</li>
+      <li>Flag gaps with ??</li>
+      <li>Make 3–5 Anki cards for facts you need to recall</li>
+      <li>Apply: do one problem, build one thing, or explain it aloud</li>
+      <li>File the note. Review in 3 days.</li>
+    </ol>
+  </div>
+
+  <div class="workflow-box">
+    <div class="workflow-box-title">
+      Workflow for mastery-seekers
+      <span class="workflow-box-badge badge-mastery">mastery</span>
+    </div>
+    <ol>
+      <li>Build a mental model of the domain before diving into specifics — understand the map before the territory</li>
+      <li>Identify the core principles of the field (usually 5–10 fundamental ideas everything else derives from)</li>
+      <li>For each concept: learn → retrieve → apply → explain → connect to fundamentals</li>
+      <li>Seek boundary cases: when does this principle fail? What does that reveal about the underlying structure?</li>
+      <li>Build your own examples — never rely only on the textbook's. Generation produces deeper encoding than recognition</li>
+      <li>Teach regularly — to another person, to a rubber duck, in writing. Inconsistencies in your teaching reveal inconsistencies in your understanding</li>
+      <li>Weekly: synthesise across notes. Look for patterns, conflicts, and gaps that span multiple concepts</li>
+      <li>Monthly: write a one-page "state of my understanding" for the domain — what you know, what you don't, what questions you have. Compare month to month</li>
+    </ol>
+  </div>
+
+  <div class="callout" style="margin-top:2rem;">
+    The research is clear on one thing above all: the act of generating — retrieving, explaining, connecting, applying — is learning. The act of consuming — reading, highlighting, watching — is not. Design your practice around the former, and every minute of study compounds. Design it around the latter, and most of what you do evaporates.
+  </div>
+
+</div>
+
+<script>
+  const btn = document.getElementById('theme-toggle');
+  const icon = document.getElementById('toggle-icon');
+  const label = document.getElementById('toggle-label');
+  const html = document.documentElement;
+
+  const saved = localStorage.getItem('theme') || 'light';
+  applyTheme(saved);
+
+  btn.addEventListener('click', () => {
+    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    localStorage.setItem('theme', next);
+  });
+
+  function applyTheme(t) {
+    html.setAttribute('data-theme', t);
+    if (t === 'dark') {
+      icon.textContent = '○';
+      label.textContent = 'light';
+    } else {
+      icon.textContent = '☽';
+      label.textContent = 'dark';
+    }
+  }
+</script>
+
+</body>
+</html>
